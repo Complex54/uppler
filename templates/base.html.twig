@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+        {% endblock %}
+    </head>
+    <body>
+    	<div id="head">
+    		<div class="container">
+				<div class="row">
+					<div class="col s6 offset-s5">
+						<div id="title">Uppler</div>
+					</div>
+				</div>
+		    </div>
+		    <div id="createArticle">
+				<a href="{{ path('create_article') }}"><button>Créer un article</button></a>
+			</div>
+		    <div id="logout">
+				<a href="{{ path('security_logout') }}"><button>Déconnexion</button></a>
+			</div>
+    	</div>
+    	<div id="spacer"></div>
+        {% block body %}{% endblock %}
+        {% block javascripts %}
+         	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+            <script src="{{ asset('js/script.js') }}"></script>
+        {% endblock %}
+    </body>
+</html>

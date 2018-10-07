@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	{% for article in articles %}
+		<div class="container">
+			<div class="row">
+				<div class="col s10 offset-s1">
+					<div class="article">
+			
+						{% set itr = loop.index0 %}
+						<div class="articleHead col s12">
+							<div class="articleTitle col s10">
+								<div class="articleTitle">
+									{{ article.title }}
+								</div>
+								<div class="icons">
+									{% if app.user != NULL %}
+								    	{% if app.user.roles[0] == "ROLE_ADMIN" %}
+										    <a href="{{ path('edit_article' , {'id': article.id }) }}"><i class="material-icons">edit</i></a>
+										    <a href="{{ path('delete_article' , {'id': article.id }) }}"><i class="material-icons">delete</i></a>
+										{% endif %}
+								    {% endif %}
+								</div>
+							</div>
+							
+						    <div class="commentNumber col s2">
+						    	{{comments[itr]|length}} commentaire
+						    </div>
+						</div>
+						<div class="written">
+							Ecrit par {{ article.user.username }}
+						</div>
+
+						<div class="articleContent ">
+							<p>
+								{{ article.content }}
+							</p>
+						</div>
+					    
+					    <div class="createComment col s12">
+							<a href="{{ path('create_comment', { 'article': article.id }) }}"><button>Commenter</button></a>
+						</div>
+						<div class="commentSection">
+							{% if comments[ itr ] is defined %}
+								{% for comment in comments[ itr ] %}
+									<div class="commentGroup">
+										<div class="commentHead">
+											Autheur - {{ comment.user.username }} 
+										    {% if app.user != NULL %}
+										    	{% if app.user.roles[0] == "ROLE_ADMIN" %}
+												    <a href="{{ path('edit_comment' , {'id': comment.id }) }}"><i class="material-icons">edit</i></a>
+												    <a href="{{ path('delete_comment' , {'id': comment.id }) }}"><i class="material-icons">delete</i></a>
+												{% endif %}
+										    {% endif %}
+										</div>
+										<div class="commentContent">
+											{{ comment.content }}
+										</div>
+									</div>
+									
+								{% endfor %}
+							{% endif %}
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endfor %}	    
+{% endblock %}
+
+
+
+
